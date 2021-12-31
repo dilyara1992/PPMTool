@@ -1,4 +1,4 @@
-package com.example.ppmtool;
+package com.dida.ppmtool;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

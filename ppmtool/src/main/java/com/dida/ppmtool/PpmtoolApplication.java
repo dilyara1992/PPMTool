@@ -1,4 +1,4 @@
-package com.example.ppmtool;
+package com.dida.ppmtool;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
