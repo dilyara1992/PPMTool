@@ -3,7 +3,10 @@ package com.dida.ppmtool.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
@@ -17,8 +20,8 @@ public class Project {
     @NotBlank(message = "Project name is required")
     private String projectName;
 
-    @NotBlank(message = "Project identifier is required")
     @Size(min=4, max=5, message= "Please use 4 to 5 characters")
+    @NotEmpty(message = "Project identifier is required")
     @Column(updatable=false, unique=true)
     private String projectIdentifier;
 
@@ -33,7 +36,7 @@ public class Project {
 
     @JsonFormat(pattern ="yyyy-mm-dd")
     private Date created_At;
-    
+
     @JsonFormat(pattern ="yyyy-mm-dd")
     private Date updated_At;
 
