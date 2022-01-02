@@ -11,8 +11,8 @@ public class Project {
     private Long id;
     private String projectName;
     private String projectIdentifier;
-    private String decription;
-    private Date strart_date;
+    private String description;
+    private Date start_date;
     private Date end_date;
 
     private Date created_At;
@@ -33,12 +33,12 @@ public class Project {
         return projectIdentifier;
     }
 
-    public String getDecription() {
-        return decription;
+    public String getDescription() {
+        return description;
     }
 
     public Date getStrart_date() {
-        return strart_date;
+        return start_date;
     }
 
     public Date getEnd_date() {
@@ -65,12 +65,12 @@ public class Project {
         this.projectIdentifier = projectIdentifier;
     }
 
-    public void setDecription(String decription) {
-        this.decription = decription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public void setStrart_date(Date strart_date) {
-        this.strart_date = strart_date;
+        this.start_date = strart_date;
     }
 
     public void setEnd_date(Date end_date) {
