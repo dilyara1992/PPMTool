@@ -1,76 +1,70 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import createProject from "../../actions/projectActions";
+import { useParams, useNavigate } from "react-router-dom";
+import { useReducer, useState } from 'react';
+import formReducer from "../../reducers/addProjectReducer";
+import axios from "axios";
+import { GET_ERRORS } from "../../actions/types";
 
-// #region constants
+const defaultState = {
+    projectName: "",
+    projectIdentifier: "",
+    description: "",
+    start_date: "",
+    end_date: ""
+};
 
-// #endregion
 
-// #region styled-components
+function AddProject(props) {
 
-// #endregion
 
-// #region functions
+    const [formState, dispatch] = useReducer(formReducer, defaultState)
+    let navigate = useNavigate();
 
-// #endregion
 
-// #region component
-const propTypes = {};
+    const handleTextChange = (e) => {
+        dispatch({
+            type: "HANDLE INPUT TEXT",
+            field: e.target.name,
+            payload: e.target.value,
+        });
+    };
 
-const defaultProps = {};
+    const handleOnSubmit = (e) => {
 
-/**
- * 
- */
-class AddProject extends React.Component {
-    constructor() {
-        super();
-
-        this.state = {
-            projectName: "",
-            projectIdentifier: "",
-            description: "",
-            start_date: "",
-            end_date: ""
-        };
-
-        this.onChange = this.onChange.bind(this)
-        this.onSubmit = this.onSubmit.bind(this)
-    }
-
-    onChange(e) {
-        this.setState({ [e.target.name]: e.target.value })
-    }
-
-    onSubmit(e) {
         e.preventDefault();
-        const newProject = {
-            projectName: this.state.projectName,
-            projectIdentifier: this.state.projectIdentifier,
-            description: this.state.description,
-            start_date: this.state.start_date,
-            end_date: this.state.end_date
-        }
-
-        console.log(newProject);
+        console.log(formState)
+        // axios.post("http://localhost:8080/api/project", formState)
+        //     .then(res => console.log('Data send'))
+        //     .catch(err => console.log(err.data))
+        props.createProject(formState, navigate)
+        console.log("here")
     }
 
-    render() {
-        return <div>
+
+
+    return (
+        <div>
+
             <div className="project">
                 <div className="container">
                     <div className="row">
                         <div className="col-md-8 m-auto">
                             <h5 className="display-4 text-center">Create Project form</h5>
                             <hr />
-                            <form onSubmit={this.onSubmit}>
+                            <form onSubmit={(e) => {
+                                return handleOnSubmit(e)
+                            }}>
                                 <div className="form-group">
                                     <input
                                         type="text"
                                         className="form-control form-control-lg "
                                         placeholder="Project Name"
                                         name="projectName"
-                                        value={this.state.projectName}
-                                        onChange={this.onChange.bind(this)}
+                                        value={formState.projectName}
+                                        onChange={(e) => handleTextChange(e)}
                                     />
                                 </div>
                                 <div className="form-group">
@@ -79,8 +73,8 @@ class AddProject extends React.Component {
                                         className="form-control form-control-lg"
                                         placeholder="Unique Project ID"
                                         name="projectIdentifier"
-                                        value={this.state.projectIdentifier}
-                                        onChange={this.onChange}
+                                        value={formState.projectIdentifier}
+                                        onChange={(e) => handleTextChange(e)}
                                     />
                                 </div>
                                 <div className="form-group">
@@ -88,8 +82,8 @@ class AddProject extends React.Component {
                                         className="form-control form-control-lg"
                                         placeholder="Project Description"
                                         name="description"
-                                        value={this.state.description}
-                                        onChange={this.onChange}
+                                        value={formState.description}
+                                        onChange={(e) => handleTextChange(e)}
                                     />
                                 </div>
                                 <h6>Start Date</h6>
@@ -98,8 +92,8 @@ class AddProject extends React.Component {
                                         type="date"
                                         className="form-control form-control-lg"
                                         name="start_date"
-                                        value={this.state.start_date}
-                                        onChange={this.onChange}
+                                        value={formState.start_date}
+                                        onChange={(e) => handleTextChange(e)}
                                     />
                                 </div>
                                 <h6>Estimated End Date</h6>
@@ -108,8 +102,8 @@ class AddProject extends React.Component {
                                         type="date"
                                         className="form-control form-control-lg"
                                         name="end_date"
-                                        value={this.state.end_date}
-                                        onChange={this.onChange}
+                                        value={formState.end_date}
+                                        onChange={(e) => handleTextChange(e)}
                                     />
                                 </div>
 
@@ -122,12 +116,16 @@ class AddProject extends React.Component {
                     </div>
                 </div>
             </div>
-        </div>;
-    }
+        </div>
+    );
 }
 
-AddProject.propTypes = propTypes;
-AddProject.defaultProps = defaultProps;
-// #endregion
 
-export default AddProject;
+AddProject.propTypes = {
+    createProject: PropTypes.func.isRequired
+};
+
+export default connect(
+    null,
+    { createProject }
+)(AddProject);

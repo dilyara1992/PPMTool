@@ -1,26 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-// #region constants
 
-// #endregion
-
-// #region styled-components
-
-// #endregion
-
-// #region functions
-
-// #endregion
-
-// #region component
-const propTypes = {};
-
-const defaultProps = {};
-
-/**
- * 
- */
 class ProjectItem extends React.Component {
     constructor(props) {
         super(props);
@@ -68,8 +49,6 @@ class ProjectItem extends React.Component {
     }
 }
 
-ProjectItem.propTypes = propTypes;
-ProjectItem.defaultProps = defaultProps;
 // #endregion
 
 export default ProjectItem;
